@@ -15,7 +15,7 @@ app = Flask(__name__)
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 OPENAI_API_URL = "https://api.openai.com/v1/images/generations"
 # Ganti port jika 5000 sudah dipakai
-LISTEN_PORT = int(os.environ.get("PORT", 8080))
+LISTEN_PORT = int(os.environ.get("PORT", 8082))
 # -----------------
 
 # Cek apakah API Key sudah diset saat startup
