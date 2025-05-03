@@ -103,4 +103,4 @@ if __name__ == '__main__':
     print("Pastikan environment variable OPENAI_API_KEY sudah di-set!")
     # host='0.0.0.0' membuat server bisa diakses dari luar VPS
     # debug=True jangan dipakai di production, hanya untuk development
-    app.run(host='0.0.0.0', port=LISTEN_PORT, debug=False)
+    app.run(host='127.0.0.1', port=LISTEN_PORT, debug=False)
