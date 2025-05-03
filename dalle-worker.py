@@ -40,6 +40,39 @@ def handle_generate_image():
 
     print(f"Menerima request untuk prompt: '{prompt}'") # Logging sederhana
 
+
+def enhance_prompt(prompt):
+    urlOpenAI = "https://api.openai.com/v1/chat/completions"
+    headers = {
+        "Authorization": f"Bearer {OPENAI_API_KEY}",
+        "Content-Type": "application/json"
+    }
+
+    messages = [
+        {
+            "role": "system",
+            "content": "You are a helpful assistant that rewrites image prompts to be more detailed and visually descriptive for DALL·E 3."
+        },
+        {
+            "role": "user",
+            "content": f"Rewrite this prompt to be more detailed and vivid for image generation: '{raw_prompt}'"
+        }
+    ]
+
+    payload = {
+        "model": "gpt-40",
+        "messages": messages,
+        "temperature": 0.7,
+        "max_tokens": 300
+    }
+
+    response = requests.post(urlOpenAI, headers=headers, json=payload)
+    response.raise_for_status()
+    data = response.json()
+
+    enhanced_prompt = data["choices"][0]["message"]["content"].strip()
+    return enhanced_prompt
+
     # 2. Siapkan request ke OpenAI
     headers = {
         "Content-Type": "application/json",
@@ -47,7 +80,7 @@ def handle_generate_image():
     }
     payload = {
         "model": "dall-e-3", # Atau model lain jika perlu
-        "prompt": prompt,
+        "prompt": enhanced_prompt,
         "n": 1,
         "size": "1024x1024" # Pastikan size didukung model
     }
